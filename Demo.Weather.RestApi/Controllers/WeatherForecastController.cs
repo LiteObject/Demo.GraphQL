@@ -1,4 +1,6 @@
+using Demo.Weather.Shared.Database;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Weather.RestApi.Controllers
 {
@@ -6,28 +8,26 @@ namespace Demo.Weather.RestApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly CityWeatherDbContext _cityWeatherDbContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, CityWeatherDbContext cityWeatherDbContext)
         {
             _logger = logger;
+            _cityWeatherDbContext = cityWeatherDbContext;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "{cityName}")]
+        public async Task<IActionResult> Get(string cityName)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var result = await _cityWeatherDbContext.Cities.Include(c => c.WeatherForecasts).Where(c => c.Name.Equals(cityName, StringComparison.OrdinalIgnoreCase)).ToListAsync();
+
+            if (result is null || result.Count == 0)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }

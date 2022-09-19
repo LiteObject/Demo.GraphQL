@@ -1,7 +1,7 @@
-using Demo.Weather.Shared.Database;
-using Microsoft.EntityFrameworkCore;
+using GraphQL;
+using Microsoft.Extensions.Options;
 
-namespace Demo.Weather.RestApi
+namespace Demo.Weather.GraphQL
 {
     public class Program
     {
@@ -16,10 +16,13 @@ namespace Demo.Weather.RestApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<CityWeatherDbContext>(context =>
-            {
-                context.UseInMemoryDatabase("CityWeatherDb");
-            });
+            builder.Services.AddGraphQL(b => b
+              .AddSchema<StarWarsSchema>()
+              .AddSystemTextJson()
+              .AddValidationRule<InputValidationRule>()
+              .AddGraphTypes(typeof(StarWarsSchema).Assembly)
+              .AddMemoryCache()
+              .AddApolloTracing(options => options.RequestServices!.GetRequiredService<IOptions<GraphQLSettings>>().Value.EnableMetrics));
 
             var app = builder.Build();
 

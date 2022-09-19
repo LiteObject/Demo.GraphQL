@@ -23,6 +23,26 @@ api/users/{id}/posts
 api/users/{id}/followers
 ```
 
+---
+## There are two libraries to expose GraphQL endpoint:
+- :trophy:[graphql-dotnet/graphql-dotnet](https://graphql-dotnet.github.io/docs/getting-started/introduction/)
+- :star:[ChilliCream/hotchocolate](https://github.com/ChilliCream/hotchocolate/blob/main/website/src/docs/hotchocolate/get-started.md)
+   - STEP #1: `dotnet add package HotChocolate.AspNetCore`
+   - STEP #2: Define the types
+   - STEP #3: Add a Query type
+   - STEP #4: Add GraphQL services
+     ```csharp
+     builder.Services
+        .AddGraphQLServer()
+        .AddQueryType<Query>();
+     ```
+   - STEP #5: Map the GraphQL endpoint 
+     ```csharp
+     var app = builder.Build();
+     // map GraphQL
+     app.MapGraphQL();
+     app.Run();
+     ```
 
 ---
 ## Links:
@@ -32,3 +52,5 @@ api/users/{id}/followers
 - [Hasura](https://hasura.io/)
 - [github.com/graphql/graphql-playground](https://github.com/graphql/graphql-playground)
 - [GraphQL for .NET](https://github.com/graphql-dotnet/graphql-dotnet)
+- [ChilliCream/hotchocolate-examples](https://github.com/ChilliCream/hotchocolate-examples)
+- [ChilliCream/graphql-workshop](https://github.com/ChilliCream/graphql-workshop)
