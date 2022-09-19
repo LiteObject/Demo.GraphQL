@@ -16,8 +16,10 @@ Instead of multiple endpoints that return fixed data structures, a GraphQL serve
 - [Hasura](https://hasura.io/) is an open source engine that connects to your databases & microservices and auto-generates a production-ready GraphQL backend. Hasura gives you realtime GraphQL APIs that are high-performance, scalable, extensible & secure (with authorization baked in).
 
 ## GraphQL vs REST API
+Over-Fetching and Under-Fetching
 
-```
+
+```html
 api/users/{id}
 api/users/{id}/posts
 api/users/{id}/followers
