@@ -9,18 +9,17 @@ namespace Demo.Weather.HotChocolate.GraphQL.GraphQL
      * and ways to retrieve them. A query type is required for every GraphQL server.
      * 
      * A query type can be defined in three ways:
-     * - Annotation-based (following example)
+     * - Annotation-based or Pure Code-First (following example):
+     *   In this approach, we don't bother about GraphQL schema types, we will just 
+     *   write clean C# code that automatically translates to GraphQL types.
      * - Code-first
+     *   In this approach, we use Schema types, Schema types allow us to keep the GraphQL 
+     *   type configuration separate from our .NET types. This can be the right approach 
+     *   when we do not want any Hot Chocolate attributes on our business objects.
      * - Schema-first
      ***************************************************************************************/
     public class Query
     {
-        // TO-DO: Inject dbcontext to get records
-        readonly List<City> _cities = new(){
-            new City { Id = 1, Name= "Fargo", WeatherForecasts = new List<WeatherForecast>()},
-            new City { Id = 2, Name= "Frisco", WeatherForecasts = new List<WeatherForecast>()}
-        };
-
         /* To lean more about DbContext injection:
          * https://chillicream.com/docs/hotchocolate/integrations/entity-framework 
          */
