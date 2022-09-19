@@ -1,4 +1,4 @@
-using Demo.Weather.HotChocolate.GraphQL.Types;
+using Demo.Weather.HotChocolate.GraphQL.GraphQL;
 using Demo.Weather.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +10,7 @@ namespace Demo.Weather.HotChocolate.GraphQL
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<CityWeatherDbContext>(c =>
+            builder.Services.AddPooledDbContextFactory<CityWeatherDbContext>(c =>
             {
                 c.UseInMemoryDatabase("CityInfo");
             });
@@ -18,7 +18,8 @@ namespace Demo.Weather.HotChocolate.GraphQL
             // Step #1:
             builder.Services
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .RegisterDbContext<CityWeatherDbContext>(DbContextKind.Pooled) // More: https://chillicream.com/docs/hotchocolate/integrations/entity-framework
+                .AddQueryType<Query>(); // Type generator (HotChocolate.Types.Analyzers) can add types automatically (somewhat like an assembly scanner)
 
             var app = builder.Build();
 

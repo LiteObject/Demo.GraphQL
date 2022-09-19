@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<!--<PackageReference Include="GraphQL.Server.Ui.Playground" Version="7.1.1" />-->		
 		<PackageReference Include="HotChocolate.AspNetCore" Version="12.13.2" />		
+		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.13.2" />					
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />		
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
@@ -16,6 +17,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Demo.Weather.Shared\Demo.Weather.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="GraphQL\Types\" />
 	</ItemGroup>
 
 </Project>
