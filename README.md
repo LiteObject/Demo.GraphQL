@@ -47,6 +47,16 @@ api/users/{id}/followers
      ```
 
 ---
+
+## Operations: GraphQL vs REST
+
+|Operation| GraphQL | REST |
+|:---|:---|:---|
+| Read | Query | GET |
+| Write | Mutation | PUT, POST, PATCH, DELETE |
+| Event | Subscription | N/A |
+
+---
 ## Links:
 - [The Fullstack Tutorial for GraphQL](https://www.howtographql.com/)
 - [Code using GraphQL](https://graphql.org/code/#c-net)

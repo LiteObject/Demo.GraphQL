@@ -20,11 +20,14 @@ namespace Demo.Weather.HotChocolate.GraphQL.GraphQL
      ***************************************************************************************/
     public class Query
     {
-        /* To lean more about DbContext injection:
-         * https://chillicream.com/docs/hotchocolate/integrations/entity-framework 
+        /* To lean more about DbContext injection:         * 
+         * https://chillicream.com/docs/hotchocolate/v13/integrations/entity-framework
          */
-        public async Task<List<City>> GetCities(CityWeatherDbContext context) => await context.Cities.ToListAsync();
 
-        public async Task<City?> GetCity(CityWeatherDbContext context, string name) => await context.Cities.Include(c => c.WeatherForecasts).FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        public async Task<List<Product>> GetProductsAsync([Service(ServiceKind.Synchronized)] ProductDbContext context)
+            => await context.Products.ToListAsync();
+
+        public async Task<Product?> GetProductByNameAsync([Service(ServiceKind.Synchronized)] ProductDbContext context, string name)
+            => await context.Products.FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 }

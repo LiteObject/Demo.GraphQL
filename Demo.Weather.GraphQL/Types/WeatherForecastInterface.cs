@@ -3,16 +3,16 @@ using GraphQL.Types;
 
 namespace Demo.Weather.GraphQL.Types
 {
-    public class WeatherForecastInterface : InterfaceGraphType<WeatherForecast>
+    public class ProductInterface : InterfaceGraphType<Product>
     {
-        public WeatherForecastInterface()
+        public ProductInterface()
         {
-            Name = "WeatherForecast";
+            Name = "Product";
 
-            Field(d => d.Summary).Description("The weather forecast summary");
-            Field(d => d.TemperatureC, nullable: false).Description("The temperature in celcius.");
+            Field(d => d.Name).Description("Product Name");
+            Field(d => d.UnitPrice, nullable: false).Description("Product Price");
 
-            Field<ListGraphType<WeatherForecastInterface>>("MultiDayWeatherForecast");
+            Field<ListGraphType<ProductInterface>>("MultiDayWeatherForecast");
             // Field<ListGraphType<EpisodeEnum>>("appearsIn", "Which movie they appear in.");
         }
     }

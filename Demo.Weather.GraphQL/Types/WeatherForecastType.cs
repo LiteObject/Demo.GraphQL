@@ -3,7 +3,7 @@ using GraphQL.Types;
 
 namespace Demo.Weather.GraphQL.Types
 {
-    public class WeatherForecastType : ObjectGraphType<WeatherForecast>
+    public class WeatherForecastType : ObjectGraphType<Product>
     {
         public WeatherForecastType()
         {

@@ -1,5 +1,8 @@
+using Demo.Weather.GraphQL;
 using Demo.Weather.Shared.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Demo.Weather.RestApi
 {
@@ -7,7 +10,7 @@ namespace Demo.Weather.RestApi
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
@@ -16,12 +19,22 @@ namespace Demo.Weather.RestApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<CityWeatherDbContext>(context =>
-            {
-                context.UseInMemoryDatabase("CityWeatherDb");
-            });
+            builder.Services.AddSqlite<ProductDbContext>("Data Source=Product.db");
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
+
+            using IServiceScope serviceScope = app.Services.CreateScope();
+            IServiceProvider serviceProvider = serviceScope.ServiceProvider;
+            ProductDbContext appDbContext = serviceProvider.GetRequiredService<ProductDbContext>();
+            // _ = appDbContext.Database.EnsureDeleted();
+            _ = appDbContext.Database.EnsureCreated();
+
+            // Seed if the table is empty
+            if (!appDbContext.Products.Any())
+            {
+                appDbContext.Products.AddRange(DataGenerator.GetProducts());
+                _ = appDbContext.SaveChanges();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -33,7 +46,6 @@ namespace Demo.Weather.RestApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
