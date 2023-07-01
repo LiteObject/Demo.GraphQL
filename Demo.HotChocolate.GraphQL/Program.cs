@@ -1,3 +1,4 @@
+using Demo.Shared.Database;
 using Demo.Weather.GraphQL;
 using Demo.Weather.HotChocolate.GraphQL.GraphQL;
 using Demo.Weather.HotChocolate.GraphQL.GraphQL.Types;
@@ -12,7 +13,7 @@ namespace Demo.Weather.HotChocolate.GraphQL
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<BlogDbContext>(c =>
+            builder.Services.AddPooledDbContextFactory<BlogDbContext>(c =>
             {
                 // c.UseInMemoryDatabase("CityInfo");
                 c.UseSqlite("Data Source=MyBlog.db");

@@ -1,5 +1,5 @@
-﻿using Demo.Weather.Shared.Database;
-using Demo.Weather.Shared.Entities;
+﻿using Demo.Shared.Database;
+using Demo.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Weather.HotChocolate.GraphQL.GraphQL

@@ -1,4 +1,4 @@
-﻿namespace Demo.Weather.Shared.Entities
+﻿namespace Demo.Shared.Entities
 {
     public class Comment
     {

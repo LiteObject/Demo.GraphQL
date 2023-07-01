@@ -1,7 +1,7 @@
-﻿using Demo.Weather.Shared.Entities;
+﻿using Demo.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Demo.Weather.Shared.Database
+namespace Demo.Shared.Database
 {
     public class BlogDbContext : DbContext
     {

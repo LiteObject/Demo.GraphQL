@@ -1,4 +1,6 @@
-﻿namespace Demo.Weather.Shared.Entities
+﻿using Demo.Shared.Entities;
+
+namespace Demo.Shared.Entities
 {
     public class Author
     {

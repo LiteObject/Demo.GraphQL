@@ -1,4 +1,6 @@
-﻿using Demo.Weather.Shared.Database;
+﻿using Demo.Shared.Database;
+using Demo.Shared.Entities;
+using Demo.Weather.Shared.Database;
 using Demo.Weather.Shared.Entities;
 
 namespace Demo.Weather.HotChocolate.GraphQL.GraphQL.Types
