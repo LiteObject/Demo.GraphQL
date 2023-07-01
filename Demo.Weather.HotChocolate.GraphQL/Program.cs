@@ -1,5 +1,6 @@
 using Demo.Weather.GraphQL;
 using Demo.Weather.HotChocolate.GraphQL.GraphQL;
+using Demo.Weather.HotChocolate.GraphQL.GraphQL.Types;
 using Demo.Weather.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,31 +12,33 @@ namespace Demo.Weather.HotChocolate.GraphQL
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<ProductDbContext>(c =>
+            builder.Services.AddDbContext<BlogDbContext>(c =>
             {
                 // c.UseInMemoryDatabase("CityInfo");
-                c.UseSqlite("Data Source=Product.db");
+                c.UseSqlite("Data Source=MyBlog.db");
             });
 
             // Step #1:
             builder.Services
                 .AddGraphQLServer()
-                .RegisterDbContext<ProductDbContext>(DbContextKind.Pooled) // More: https://chillicream.com/docs/hotchocolate/integrations/entity-framework
-                .AddQueryType<Query>(); // Type generator (HotChocolate.Types.Analyzers) can add types automatically (somewhat like an assembly scanner)
+                .RegisterDbContext<BlogDbContext>(DbContextKind.Pooled) // More: https://chillicream.com/docs/hotchocolate/integrations/entity-framework
+                .AddQueryType<Query>() // Type generator (HotChocolate.Types.Analyzers) can add types automatically (somewhat like an assembly scanner)
+                .AddType<AuthorType>()
+                .AddType<PostType>()
+                .AddType<CommentType>();
 
             WebApplication app = builder.Build();
 
             using IServiceScope serviceScope = app.Services.CreateScope();
             IServiceProvider serviceProvider = serviceScope.ServiceProvider;
-            ProductDbContext appDbContext = serviceProvider.GetRequiredService<ProductDbContext>();
+            BlogDbContext appDbContext = serviceProvider.GetRequiredService<BlogDbContext>();
             // _ = appDbContext.Database.EnsureDeleted();
             _ = appDbContext.Database.EnsureCreated();
 
             // Seed if the table is empty
-            if (!appDbContext.Products.Any())
+            if (!appDbContext.Posts.Any())
             {
-                appDbContext.Products.AddRange(DataGenerator.GetProducts());
-                _ = appDbContext.SaveChanges();
+                DataGenerator.SeedData(appDbContext);
             }
 
             // Step #2:

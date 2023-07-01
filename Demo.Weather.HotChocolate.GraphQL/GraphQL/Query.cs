@@ -24,10 +24,28 @@ namespace Demo.Weather.HotChocolate.GraphQL.GraphQL
          * https://chillicream.com/docs/hotchocolate/v13/integrations/entity-framework
          */
 
-        public async Task<List<Product>> GetProductsAsync([Service(ServiceKind.Synchronized)] ProductDbContext context)
-            => await context.Products.ToListAsync();
+        //public async Task<List<Product>> GetProductsAsync([Service(ServiceKind.Synchronized)] ProductDbContext context)
+        //    => await context.Products.ToListAsync();
 
-        public async Task<Product?> GetProductByNameAsync([Service(ServiceKind.Synchronized)] ProductDbContext context, string name)
-            => await context.Products.FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        //public async Task<Product?> GetProductByNameAsync([Service(ServiceKind.Synchronized)] ProductDbContext context, string name)
+        //    => await context.Products.FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+        //[UseDbContext(typeof(BlogDbContext))]
+        public IQueryable<Author> GetAuthors([Service(ServiceKind.Synchronized)] BlogDbContext context)
+        {
+            return context.Authors.Include(a => a.Posts);
+        }
+
+        //[UseDbContext(typeof(BlogDbContext))]
+        public IQueryable<Post> GetPosts([Service(ServiceKind.Synchronized)] BlogDbContext context)
+        {
+            return context.Posts.Include(p => p.Comments);
+        }
+
+        //[UseDbContext(typeof(BlogDbContext))]
+        public IQueryable<Comment> GetComments([Service(ServiceKind.Synchronized)] BlogDbContext context)
+        {
+            return context.Comments;
+        }
     }
 }

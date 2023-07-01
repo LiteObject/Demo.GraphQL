@@ -348,9 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/Demo.Weather.HotChocolate.GraphQL/Product.db
-/Demo.Weather.HotChocolate.GraphQL/Product.db-shm
-/Demo.Weather.HotChocolate.GraphQL/Product.db-wal
-/Demo.Weather.RestApi/Product.db
-/Demo.Weather.RestApi/Product.db-shm
-/Demo.Weather.RestApi/Product.db-wal
+**/*.db*

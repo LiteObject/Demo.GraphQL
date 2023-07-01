@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Product.db" />
+	  <None Remove="Product.db-shm" />
+	  <None Remove="Product.db-wal" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<!--<PackageReference Include="GraphQL.Server.Ui.Playground" Version="7.1.1" />-->		
 		<PackageReference Include="HotChocolate.AspNetCore" Version="13.2.1" />		
 		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.2.1" />					
@@ -17,10 +23,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Demo.Weather.Shared\Demo.Weather.Shared.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="GraphQL\Types\" />
 	</ItemGroup>
 
 </Project>

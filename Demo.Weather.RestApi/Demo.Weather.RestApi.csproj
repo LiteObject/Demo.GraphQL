@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MyBlog.db" />
+    <None Remove="MyBlog.db-shm" />
+    <None Remove="MyBlog.db-wal" />
+    <None Remove="Product.db" />
+    <None Remove="Product.db-shm" />
+    <None Remove="Product.db-wal" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

@@ -7,14 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Weather.RestApi", "Dem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Weather.GraphQL", "Demo.Weather.GraphQL\Demo.Weather.GraphQL.csproj", "{5FC265B2-7B34-476F-88F5-4CF0845E5FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Weather.HotChocolate.GraphQL", "Demo.Weather.HotChocolate.GraphQL\Demo.Weather.HotChocolate.GraphQL.csproj", "{E64C45BC-2B2A-4CD2-A60E-4E3F9C595C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Weather.HotChocolate.GraphQL", "Demo.Weather.HotChocolate.GraphQL\Demo.Weather.HotChocolate.GraphQL.csproj", "{E64C45BC-2B2A-4CD2-A60E-4E3F9C595C50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2112EA11-6191-4E14-8168-DE66A17C6398}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Weather.Shared", "Demo.Weather.Shared\Demo.Weather.Shared.csproj", "{CA324B74-ABAC-4296-BC44-A1357244EF26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Weather.Shared", "Demo.Weather.Shared\Demo.Weather.Shared.csproj", "{CA324B74-ABAC-4296-BC44-A1357244EF26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
