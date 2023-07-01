@@ -1,7 +1,5 @@
 ﻿using Demo.Shared.Database;
 using Demo.Shared.Entities;
-using Demo.Weather.Shared.Database;
-using Demo.Weather.Shared.Entities;
 
 namespace Demo.Weather.HotChocolate.GraphQL.GraphQL.Types
 {
@@ -12,14 +10,19 @@ namespace Demo.Weather.HotChocolate.GraphQL.GraphQL.Types
             descriptor.Field(p => p.Id).Type<NonNullType<IntType>>();
             descriptor.Field(p => p.Title).Type<NonNullType<StringType>>();
             descriptor.Field(p => p.Content).Type<NonNullType<StringType>>();
-            descriptor.Field(p => p.Author).Type<NonNullType<AuthorType>>()
+
+            descriptor.Field(p => p.Author)
+                .Type<NonNullType<AuthorType>>()
+                .UseDbContext<BlogDbContext>()
                 .Resolver(ctx =>
-                    ctx.Service<BlogDbContext>()
+                    ctx.DbContext<BlogDbContext>()
                         .Find<Author>(ctx.Parent<Post>().AuthorId));
-            descriptor.Field(p => p.Comments).Resolver(ctx =>
-                ctx.Service<BlogDbContext>()
-                    .Set<Comment>()
-                    .Where(c => c.PostId == ctx.Parent<Post>().Id));
+
+            descriptor.Field(p => p.Comments)
+                .UseDbContext<BlogDbContext>()
+                .Resolver(ctx =>
+                    ctx.DbContext<BlogDbContext>()
+                        .Comments.Where(c => c.PostId == ctx.Parent<Post>().Id));
         }
     }
 }

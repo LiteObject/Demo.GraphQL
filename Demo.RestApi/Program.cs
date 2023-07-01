@@ -1,9 +1,5 @@
 using Demo.Shared.Database;
 using Demo.Weather.GraphQL;
-using Demo.Weather.Shared.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Demo.Weather.RestApi
 {

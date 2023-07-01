@@ -2,7 +2,6 @@ using Demo.Shared.Database;
 using Demo.Weather.GraphQL;
 using Demo.Weather.HotChocolate.GraphQL.GraphQL;
 using Demo.Weather.HotChocolate.GraphQL.GraphQL.Types;
-using Demo.Weather.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Weather.HotChocolate.GraphQL
@@ -32,15 +31,17 @@ namespace Demo.Weather.HotChocolate.GraphQL
 
             using IServiceScope serviceScope = app.Services.CreateScope();
             IServiceProvider serviceProvider = serviceScope.ServiceProvider;
-            BlogDbContext appDbContext = serviceProvider.GetRequiredService<BlogDbContext>();
-            // _ = appDbContext.Database.EnsureDeleted();
-            _ = appDbContext.Database.EnsureCreated();
+            IDbContextFactory<BlogDbContext> appDbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<BlogDbContext>>();
+            BlogDbContext dbContext = appDbContextFactory.CreateDbContext();
+            _ = dbContext.Database.EnsureDeleted();
+            _ = dbContext.Database.EnsureCreated();
+            DataGenerator.SeedData(dbContext);
 
             // Seed if the table is empty
-            if (!appDbContext.Posts.Any())
-            {
-                DataGenerator.SeedData(appDbContext);
-            }
+            //if (!dbContext.Posts.Any())
+            //{
+            //    DataGenerator.SeedData(dbContext);
+            //}
 
             // Step #2:
             // app.UseRouting().UseEndpoints(endpoint => endpoint.MapGraphQL());
@@ -54,7 +55,12 @@ namespace Demo.Weather.HotChocolate.GraphQL
             // Step #2:
             // app.Map("/", () => "Hello GraphQL");
             // http://localhost:5266/graphql/
-            app.MapGraphQL();
+            // app.MapGraphQL();
+            app.UseRouting().UseEndpoints(endpoint =>
+            {
+                endpoint.MapGraphQL();
+                endpoint.MapFallback(() => Results.Redirect("/graphql"));
+            });
 
             app.Run();
         }

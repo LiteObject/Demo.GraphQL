@@ -1,6 +1,5 @@
 ﻿using Demo.Shared.Database;
 using Demo.Shared.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Weather.HotChocolate.GraphQL.GraphQL
 {
@@ -31,19 +30,20 @@ namespace Demo.Weather.HotChocolate.GraphQL.GraphQL
         //    => await context.Products.FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
         //[UseDbContext(typeof(BlogDbContext))]
-        public IQueryable<Author> GetAuthors([Service(ServiceKind.Synchronized)] BlogDbContext context)
+        public IQueryable<Author> GetAuthors(BlogDbContext context)
         {
-            return context.Authors.Include(a => a.Posts);
+            return context.Authors;
+        }
+
+        // [UsePaging]
+        // [UseSorting]
+        public IQueryable<Post> GetPosts(BlogDbContext context)
+        {
+            return context.Posts;
         }
 
         //[UseDbContext(typeof(BlogDbContext))]
-        public IQueryable<Post> GetPosts([Service(ServiceKind.Synchronized)] BlogDbContext context)
-        {
-            return context.Posts.Include(p => p.Comments);
-        }
-
-        //[UseDbContext(typeof(BlogDbContext))]
-        public IQueryable<Comment> GetComments([Service(ServiceKind.Synchronized)] BlogDbContext context)
+        public IQueryable<Comment> GetComments(BlogDbContext context)
         {
             return context.Comments;
         }

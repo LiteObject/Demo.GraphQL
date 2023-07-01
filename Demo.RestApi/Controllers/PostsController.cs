@@ -1,10 +1,7 @@
 using Demo.Shared.Database;
 using Demo.Shared.Entities;
-using Demo.Weather.Shared.Database;
-using Demo.Weather.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 
 namespace Demo.Weather.RestApi.Controllers
 {

@@ -15,10 +15,16 @@ namespace Demo.Shared.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Author>().HasKey(a => a.Id);
+
+            modelBuilder.Entity<Post>().HasKey(p => p.Id);
+
             modelBuilder.Entity<Post>()
                 .HasOne(p => p.Author)
                 .WithMany(a => a.Posts)
                 .HasForeignKey(p => p.AuthorId);
+
+            modelBuilder.Entity<Comment>().HasKey(c => c.Id);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Post)
